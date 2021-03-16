@@ -1,34 +1,38 @@
-import kivy
-from kivy.app import App
+# import kivy
+# from kivy.app import App
 from kivymd.app import MDApp
-from kivy.uix.label import Label
-from kivy.uix.gridlayout import GridLayout
-from kivy.uix.textinput import TextInput
-from kivy.uix.widget import Widget
-from kivy.lang import Builder
+# from kivy.uix.label import Label
+# from kivy.uix.gridlayout import GridLayout
+# from kivy.uix.textinput import TextInput
+# from kivy.uix.widget import Widget
+# from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty
 from kivy.properties import StringProperty
-from datetime import date
+from datetime import date, time
 from kivy.core.window import Window
-from kivymd.uix.datatables import MDDataTable
-from kivy.metrics import dp
-from kivy.uix.anchorlayout import AnchorLayout
-from kivy.graphics import Color,Rectangle
+# from kivymd.uix.datatables import MDDataTable
+# from kivy.metrics import dp
+# from kivy.uix.anchorlayout import AnchorLayout
+# from kivy.graphics import Color, Rectangle
 from kivy.uix.popup import Popup
-from kivy.factory import Factory
+# from kivy.factory import Factory
+# from kivy.effects.opacityscroll import OpacityScrollEffect
+from kivy.uix.camera import Camera
 import csv
 import pandas
+
+
 def load_data():
     df = pandas.read_csv('report.csv')
     df = df.set_index('date')
+    df.sort_index(axis=0, inplace=True)
     return df
+
 
 Window.softinput_mode = "below_target"
 today = date.today()
 numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.']
-
-
 
 
 class WindowManager(ScreenManager):
@@ -38,41 +42,51 @@ class WindowManager(ScreenManager):
 class Income(Screen):
     income = ObjectProperty(None)
     reference = ObjectProperty(None)
+
     def submit(self):
-        x = self.income.text.count('.')
-        for num in self.income.text:
-            if num not in numbers or x != 1:
-                self.income.text = 'please enter a number'
-                break
+        try:
+            value = float(self.income.text)
+            value = format(value, '.2f')
+            self.income.text = str(value)
+        except ValueError:
+            self.income.text = 'please enter a number'
+            return
         else:
-            with open('report.csv', mode='a') as f:
-                update = csv.writer(f, delimiter=',')
-                update.writerow([today, self.income.text, 0, 0, self.reference.text])
-                self.income.text = ''
-                self.reference.text = ''
-# TODO check for decimals and add if needed
+            for num in self.income.text:
+                if num not in numbers:
+                    self.income.text = 'please enter a number'
+                    break
+            else:
+                with open('report.csv', mode='a') as f:
+                    update = csv.writer(f, delimiter=',')
+                    update.writerow([today, self.income.text, 0, 0, self.reference.text])
+                    self.income.text = ''
+                    self.reference.text = ''
+
 
 class Expense(Screen):
     expense = ObjectProperty(None)
     referenceex = ObjectProperty(None)
 
     def submit(self):
-        value = self.expense.text
-        x = self.expense.text.count('.')
-
-        for num in self.expense.text:
-            if num not in numbers or x != 1:
-                self.expense.text = 'please enter a number'
-                break
+        try:
+            value = float(self.expense.text)
+            value = format(value, '.2f')
+            self.expense.text = str(value)
+        except ValueError:
+            self.expense.text = 'please enter a number'
+            return
         else:
-            with open('report.csv', mode='a') as f:
-                update = csv.writer(f, delimiter=',')
-                update.writerow([today, 0, self.expense.text, 0, self.referenceex.text])
-            self.expense.text = ''
-            self.referenceex.text = ''
-
-
-
+            for num in value:
+                if num not in numbers:
+                    self.expense.text = 'please enter a number'
+                    break
+            else:
+                with open('report.csv', mode='a') as f:
+                    update = csv.writer(f, delimiter=',')
+                    update.writerow([today, 0, self.expense.text, 0, self.referenceex.text])
+                self.expense.text = ''
+                self.referenceex.text = ''
 
 
 class Total(Screen):
@@ -102,58 +116,72 @@ class Total(Screen):
 
 class History(Screen):
 
-    def january(self):
+    @staticmethod
+    def january():
 
         pops = JanPop()
         pops.open()
 
-    def february(self):
+    @staticmethod
+    def february():
 
         pops = FebPop()
         pops.open()
 
-    def march(self):
+    @staticmethod
+    def march():
         pops = MarchPop()
         pops.open()
 
-    def april(self):
+    @staticmethod
+    def april():
         pops = AprilPop()
         pops.open()
 
-    def may(self):
+    @staticmethod
+    def may():
         pops = MayPop()
         pops.open()
 
-    def june(self):
+    @staticmethod
+    def june():
         pops = JunePop()
         pops.open()
 
-    def july(self):
+    @staticmethod
+    def july():
         pops = JulyPop()
         pops.open()
 
-    def august(self):
+    @staticmethod
+    def august():
         pops = AugustPop()
         pops.open()
 
-    def september(self):
+    @staticmethod
+    def september():
         pops = SeptemberPop()
         pops.open()
 
-    def october(self):
+    @staticmethod
+    def october():
         pops = OctoberPop()
         pops.open()
 
-    def november(self):
+    @staticmethod
+    def november():
         pops = NovemberPop()
         pops.open()
 
-    def december(self):
+    @staticmethod
+    def december():
         pops = DecemberPop()
         pops.open()
 
 
 class JanPop(Popup):
+    data = StringProperty()
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         jan = load_data()
@@ -163,6 +191,7 @@ class JanPop(Popup):
         else:
             jan = jan.to_string(col_space=20, justify='end')
             self.data = jan
+
 
 class FebPop(Popup):
     data = StringProperty()
@@ -181,10 +210,10 @@ class FebPop(Popup):
 class MarchPop(Popup):
     data = StringProperty()
 
-    def __init__(self):
+    def __init__(self,):
         super().__init__()
-        march = load_data()
-        march = march.loc["2021-03-01":"2021-03-31"]
+        mdf = load_data()
+        march = mdf.loc["2021-03-01":"2021-03-31"]
         if march.empty:
             self.data = 'Nothing to display'
         else:
@@ -216,6 +245,7 @@ class MayPop(Popup):
         if may.empty:
             self.data = 'Nothing to display'
         else:
+
             may = may.to_string(col_space=20, justify='end')
             self.data = may
 
@@ -318,31 +348,15 @@ class DecemberPop(Popup):
             self.data = december
 
 
+class Records(Screen):
+    def capture(self):
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#kv = Builder.load_file('mymain.kv')
-
+        timestr = today
+        self.export_to_png('IMG_{}.png'.format(timestr))
 
 class MyMainApp(MDApp):
     def build(self):
-
         return
-
 
 
 if __name__ == '__main__':

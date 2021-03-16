@@ -1,5 +1,5 @@
 
-
+#: import ScrollEffect kivy.effects.scroll.ScrollEffect
 
 
 WindowManager:
@@ -7,6 +7,7 @@ WindowManager:
     Expense:
     Total:
     History:
+    Records:
 
 <Text>
     color: 0, 1, 1, 1
@@ -42,6 +43,7 @@ WindowManager:
             multiline: False
             size_hint: 0.7, 0.1
             pos_hint: {'x':0.3, 'y':.8}
+            on_touch_down: if self.collide_point(*args[1].pos): self.text = ""
 
         TextInput:
             id: reference
@@ -112,6 +114,8 @@ WindowManager:
             multiline: False
             size_hint: 0.7, 0.1
             pos_hint: {'x':0.3, 'y':.8}
+            on_touch_down: if self.collide_point(*args[1].pos): self.text = ""
+
 
         TextInput:
             id: referenceex
@@ -242,6 +246,13 @@ WindowManager:
             on_release:
                 app.root.current = 'expense'
 
+        Button:
+            text: 'Records'
+            size_hint: .2, .1
+            pos_hint: {'x':.8, 'y':0.9}
+            on_release:
+                app.root.current = 'records'
+
         GridLayout:
             cols: 2
             size_hint: 1, 0.8
@@ -326,12 +337,23 @@ WindowManager:
 
     auto_dismiss:False
     title:'January'
-    GridLayout:
-        rows:2
-        Label:
-            text:
+    FloatLayout:
+        ScrollView:
+            do_scroll_y: True
+            do_scroll_x: False
+            size_hint: 1, 0.9
+            pos_hint: {'x':0, 'y':0.1}
+
+            Label:
+                size: self.texture_size
+                size_hint: (1, None)
+                padding_x: 20
+                text: root.data
+                text_size: self.width, None
+                valign: 'top'
 
         Button:
+            size_hint: 1, 0.1
             text:"Click Here To Dismiss PopUp"
             on_press: pop.dismiss()
 
@@ -343,14 +365,23 @@ WindowManager:
 
     auto_dismiss:False
     title:'February'
-    GridLayout:
-        rows:2
-        Label:
-            text: root.data
-            text_size: self.size
-            valign: 'top'
+    FloatLayout:
+        ScrollView:
+            do_scroll_y: True
+            do_scroll_x: False
+            size_hint: 1, 0.9
+            pos_hint: {'x':0, 'y':0.1}
+
+            Label:
+                size: self.texture_size
+                size_hint: (1, None)
+                padding_x: 20
+                text: root.data
+                text_size: self.width, None
+                valign: 'top'
 
         Button:
+            size_hint: 1, 0.1
             text:"Click Here To Dismiss PopUp"
             on_press: pop.dismiss()
 
@@ -359,14 +390,23 @@ WindowManager:
 
     auto_dismiss:False
     title:'March'
-    GridLayout:
-        rows:2
-        Label:
-            text: root.data
-            text_size: self.size
-            valign: 'top'
+    FloatLayout:
+        ScrollView:
+            do_scroll_y: True
+            do_scroll_x: False
+            size_hint: 1, 0.9
+            pos_hint: {'x':0, 'y':0.1}
+
+            Label:
+                size: self.texture_size
+                size_hint: (1, None)
+                padding_x: 20
+                text: root.data
+                text_size: self.width, None
+                valign: 'top'
 
         Button:
+            size_hint: 1, 0.1
             text:"Click Here To Dismiss PopUp"
             on_press: pop.dismiss()
 
@@ -375,14 +415,23 @@ WindowManager:
 
     auto_dismiss:False
     title:'April'
-    GridLayout:
-        rows:2
-        Label:
-            text: root.data
-            text_size: self.size
-            valign: 'top'
+    FloatLayout:
+        ScrollView:
+            do_scroll_y: True
+            do_scroll_x: False
+            size_hint: 1, 0.9
+            pos_hint: {'x':0, 'y':0.1}
+
+            Label:
+                size: self.texture_size
+                size_hint: (1, None)
+                padding_x: 20
+                text: root.data
+                text_size: self.width, None
+                valign: 'top'
 
         Button:
+            size_hint: 1, 0.1
             text:"Click Here To Dismiss PopUp"
             on_press: pop.dismiss()
 
@@ -391,14 +440,23 @@ WindowManager:
 
     auto_dismiss:False
     title:'May'
-    GridLayout:
-        rows:2
-        Label:
-            text: root.data
-            text_size: self.size
-            valign: 'top'
+    FloatLayout:
+        ScrollView:
+            do_scroll_y: True
+            do_scroll_x: False
+            size_hint: 1, 0.9
+            pos_hint: {'x':0, 'y':0.1}
+
+            Label:
+                size: self.texture_size
+                size_hint: (1, None)
+                padding_x: 20
+                text: root.data
+                text_size: self.width, None
+                valign: 'top'
 
         Button:
+            size_hint: 1, 0.1
             text:"Click Here To Dismiss PopUp"
             on_press: pop.dismiss()
 
@@ -407,14 +465,23 @@ WindowManager:
 
     auto_dismiss:False
     title:'June'
-    GridLayout:
-        rows:2
-        Label:
-            text: root.data
-            text_size: self.size
-            valign: 'top'
+    FloatLayout:
+        ScrollView:
+            do_scroll_y: True
+            do_scroll_x: False
+            size_hint: 1, 0.9
+            pos_hint: {'x':0, 'y':0.1}
+
+            Label:
+                size: self.texture_size
+                size_hint: (1, None)
+                padding_x: 20
+                text: root.data
+                text_size: self.width, None
+                valign: 'top'
 
         Button:
+            size_hint: 1, 0.1
             text:"Click Here To Dismiss PopUp"
             on_press: pop.dismiss()
 
@@ -423,14 +490,23 @@ WindowManager:
 
     auto_dismiss:False
     title:'July'
-    GridLayout:
-        rows:2
-        Label:
-            text: root.data
-            text_size: self.size
-            valign: 'top'
+    FloatLayout:
+        ScrollView:
+            do_scroll_y: True
+            do_scroll_x: False
+            size_hint: 1, 0.9
+            pos_hint: {'x':0, 'y':0.1}
+
+            Label:
+                size: self.texture_size
+                size_hint: (1, None)
+                padding_x: 20
+                text: root.data
+                text_size: self.width, None
+                valign: 'top'
 
         Button:
+            size_hint: 1, 0.1
             text:"Click Here To Dismiss PopUp"
             on_press: pop.dismiss()
 
@@ -439,14 +515,23 @@ WindowManager:
 
     auto_dismiss:False
     title:'August'
-    GridLayout:
-        rows:2
-        Label:
-            text: root.data
-            text_size: self.size
-            valign: 'top'
+    FloatLayout:
+        ScrollView:
+            do_scroll_y: True
+            do_scroll_x: False
+            size_hint: 1, 0.9
+            pos_hint: {'x':0, 'y':0.1}
+
+            Label:
+                size: self.texture_size
+                size_hint: (1, None)
+                padding_x: 20
+                text: root.data
+                text_size: self.width, None
+                valign: 'top'
 
         Button:
+            size_hint: 1, 0.1
             text:"Click Here To Dismiss PopUp"
             on_press: pop.dismiss()
 
@@ -455,14 +540,48 @@ WindowManager:
 
     auto_dismiss:False
     title:'September'
-    GridLayout:
-        rows:2
-        Label:
-            text: root.data
-            text_size: self.size
-            valign: 'top'
+    FloatLayout:
+        ScrollView:
+            do_scroll_y: True
+            do_scroll_x: False
+            size_hint: 1, 0.9
+            pos_hint: {'x':0, 'y':0.1}
+
+            Label:
+                size: self.texture_size
+                size_hint: (1, None)
+                padding_x: 20
+                text: root.data
+                text_size: self.width, None
+                valign: 'top'
 
         Button:
+            size_hint: 1, 0.1
+            text:"Click Here To Dismiss PopUp"
+            on_press: pop.dismiss()
+
+<OctoberPop>
+    id:pop
+
+    auto_dismiss:False
+    title:'October'
+    FloatLayout:
+        ScrollView:
+            do_scroll_y: True
+            do_scroll_x: False
+            size_hint: 1, 0.9
+            pos_hint: {'x':0, 'y':0.1}
+
+            Label:
+                size: self.texture_size
+                size_hint: (1, None)
+                padding_x: 20
+                text: root.data
+                text_size: self.width, None
+                valign: 'top'
+
+        Button:
+            size_hint: 1, 0.1
             text:"Click Here To Dismiss PopUp"
             on_press: pop.dismiss()
 
@@ -471,14 +590,23 @@ WindowManager:
 
     auto_dismiss:False
     title:'November'
-    GridLayout:
-        rows:2
-        Label:
-            text: root.data
-            text_size: self.size
-            valign: 'top'
+    FloatLayout:
+        ScrollView:
+            do_scroll_y: True
+            do_scroll_x: False
+            size_hint: 1, 0.9
+            pos_hint: {'x':0, 'y':0.1}
+
+            Label:
+                size: self.texture_size
+                size_hint: (1, None)
+                padding_x: 20
+                text: root.data
+                text_size: self.width, None
+                valign: 'top'
 
         Button:
+            size_hint: 1, 0.1
             text:"Click Here To Dismiss PopUp"
             on_press: pop.dismiss()
 
@@ -487,16 +615,47 @@ WindowManager:
 
     auto_dismiss:False
     title:'December'
-    GridLayout:
-        rows:2
-        Label:
-            text: root.data
-            text_size: self.size
-            valign: 'top'
+    FloatLayout:
+        ScrollView:
+            do_scroll_y: True
+            do_scroll_x: False
+            size_hint: 1, 0.9
+            pos_hint: {'x':0, 'y':0.1}
+
+            Label:
+                size: self.texture_size
+                size_hint: (1, None)
+                padding_x: 20
+                text: root.data
+                text_size: self.width, None
+                valign: 'top'
 
         Button:
+            size_hint: 1, 0.1
             text:"Click Here To Dismiss PopUp"
             on_press: pop.dismiss()
+
+<Records>:
+    name: 'records'
+    orientation: 'vertical'
+    FloatLayout
+        Camera:
+            pos_hint:{'x':0, 'y':0.1}
+            size_hint:1,0.9
+            id: camera
+            index: 0
+            play: False
+
+        ToggleButton:
+            text: 'Play'
+            on_press: camera.play = not camera.play
+            size_hint:0.5, 0.1
+            height: '48dp'
+        Button:
+            pos_hint:{'x':0.5,'y':0}
+            text: 'Capture'
+            size_hint:0.5,0.1
+            on_press: root.capture()
 
 
 
