@@ -1,0 +1,502 @@
+
+
+
+
+WindowManager:
+    Income:
+    Expense:
+    Total:
+    History:
+
+<Text>
+    color: 0, 1, 1, 1
+<Button>
+    background_color: 1, 1, 0, 1
+<Income>:
+
+    name: 'income'
+    income: income
+    reference: reference
+    FloatLayout:
+
+        canvas.before:
+            Color:
+                rgba: 0.14, 0.24, 0.22, 0.5
+            Rectangle:
+                # self here refers to the widget i.e BoxLayout
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: 'Income £'
+            size_hint: 0.3, 0.1
+            pos_hint: {'x':0, 'y':.8}
+
+        Label:
+            text: 'Reference'
+            size_hint: 0.3, 0.1
+            pos_hint: {'x':0, 'y':.7}
+
+        TextInput:
+            id: income
+            multiline: False
+            size_hint: 0.7, 0.1
+            pos_hint: {'x':0.3, 'y':.8}
+
+        TextInput:
+            id: reference
+            multiline: False
+            size_hint: 0.7, 0.1
+            pos_hint: {'x':0.3, 'y':.7}
+
+
+        Button:
+            text: 'Submit'
+            size_hint: 1, .2
+            pos_hint: {'x':0, 'y':0}
+            on_release:
+                root.submit() if income.text != '' else None
+
+
+        Button:
+            text: 'Expense'
+            size_hint: .2, .1
+            pos_hint: {'x':0, 'y':0.9}
+            on_release:
+                app.root.current = 'expense'
+
+        Button:
+            text: 'Total'
+            size_hint: .2, .1
+            pos_hint: {'x':.2, 'y':0.9}
+            on_release:
+                app.root.current = 'total'
+
+        Button:
+            text: 'History'
+            size_hint: .2, .1
+            pos_hint: {'x':.4, 'y':0.9}
+            on_release:
+                app.root.current = 'history'
+
+
+
+<Expense>:
+    name: 'expense'
+    expense: expense
+    referenceex: referenceex
+
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: 0.14, 0.24, 0.22, 0.5
+            Rectangle:
+                # self here refers to the widget i.e BoxLayout
+                pos: self.pos
+                size: self.size
+
+
+        Label:
+            text: 'Expense £'
+            size_hint: 0.1, 0.1
+            size_hint: 0.3, 0.1
+            pos_hint: {'x':0, 'y':.8}
+
+        Label:
+            text: 'Reference'
+            size_hint: 0.3, 0.1
+            pos_hint: {'x':0, 'y':.7}
+
+        TextInput:
+            id: expense
+            multiline: False
+            size_hint: 0.7, 0.1
+            pos_hint: {'x':0.3, 'y':.8}
+
+        TextInput:
+            id: referenceex
+            multiline: False
+            size_hint: 0.7, 0.1
+            pos_hint: {'x':0.3, 'y':.7}
+
+        Button:
+            text: 'Submit'
+            size_hint: 1, .2
+            pos_hint: {'x':0, 'y':0}
+            on_release:
+                root.submit() if expense.text != '' else None
+
+        Button:
+            text: 'Income'
+            size_hint: .2, .1
+            pos_hint: {'x':0, 'y':0.9}
+            on_release:
+                app.root.current = 'income'
+
+        Button:
+            text: 'Total'
+            size_hint: .2, .1
+            pos_hint: {'x':.2, 'y':0.9}
+            on_release:
+                app.root.current = 'total'
+
+        Button:
+            text: 'History'
+            size_hint: .2, .1
+            pos_hint: {'x':.4, 'y':0.9}
+            on_release:
+                app.root.current = 'history'
+
+<Total>
+    name: 'total'
+
+
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: 0.14, 0.24, 0.22, 0.5
+            Rectangle:
+                # self here refers to the widget i.e BoxLayout
+                pos: self.pos
+                size: self.size
+
+        Label:
+
+            text: 'Gross Profit:'
+            size_hint: .2, .1
+            pos_hint: {'x':0.01, 'y':.8}
+
+        Label:
+            text: 'Net Profit:'
+            size_hint: .2, .1
+            pos_hint: {'x':0.01, 'y':.7}
+
+        Button:
+            text: 'Income'
+            size_hint: .2, .1
+            pos_hint: {'x':0, 'y':0.9}
+            on_release:
+                app.root.current = 'income'
+
+        Button:
+            text: 'Expense'
+            size_hint: .2, .1
+            pos_hint: {'x':.2, 'y':0.9}
+            on_release:
+                app.root.current = 'expense'
+
+        Button:
+            text: 'History'
+            size_hint: .2, .1
+            pos_hint: {'x':.4, 'y':0.9}
+            on_release:
+                app.root.current = 'history'
+
+        Label:
+            text: root.gross_total
+            size_hint: .2, .1
+            pos_hint: {'x':.2, 'y':.8}
+
+        Label:
+            text: root.net_total
+            size_hint: .2, .1
+            pos_hint: {'x':.2, 'y':.7}
+
+        Button:
+            text: 'Calculate'
+            size_hint: .2, .1
+            on_release:
+                root.calculate()
+
+
+
+<History>
+    name: 'history'
+    FloatLayout:
+        canvas.before:
+            Color:
+                rgba: 0.14, 0.24, 0.22, 0.5
+            Rectangle:
+                # self here refers to the widget i.e BoxLayout
+                pos: self.pos
+                size: self.size
+
+        Button:
+            text: 'Total'
+            size_hint: .2, .1
+            pos_hint: {'x':.4, 'y':0.9}
+            on_release:
+                app.root.current = 'total'
+
+        Button:
+            text: 'Income'
+            size_hint: .2, .1
+            pos_hint: {'x':0, 'y':0.9}
+            on_release:
+                app.root.current = 'income'
+
+        Button:
+            text: 'Expense'
+            size_hint: .2, .1
+            pos_hint: {'x':.2, 'y':0.9}
+            on_release:
+                app.root.current = 'expense'
+
+        GridLayout:
+            cols: 2
+            size_hint: 1, 0.8
+
+            Button:
+                text: 'January'
+                size_hint: .5, .1
+                on_release:
+                    root.january()
+
+            Button:
+                text: 'February'
+                size_hint: .5, .1
+                on_release:
+                    root.february()
+
+
+            Button:
+                text: 'March'
+                size_hint: .5, .1
+                on_release:
+                    root.march()
+
+            Button:
+                text: 'April'
+                size_hint: .5, .1
+                on_release:
+                    root.april()
+
+            Button:
+                text: 'May'
+                size_hint: .5, .1
+                on_release:
+                    root.may()
+
+            Button:
+                text: 'June'
+                size_hint: .5, .1
+                on_release:
+                    root.june()
+
+            Button:
+                text: 'July'
+                size_hint: .5, .1
+                on_release:
+                    root.july()
+
+            Button:
+                text: 'August'
+                size_hint: .5, .1
+                on_release:
+                    root.august()
+
+            Button:
+                text: 'September'
+                size_hint: .5, .1
+                on_release:
+                    root.september()
+
+            Button:
+                text: 'October'
+                size_hint: .5, .1
+                on_release:
+                    root.october()
+
+            Button:
+                text: 'November'
+                size_hint: .5, .1
+                on_release:
+                    root.november()
+
+            Button:
+                text: 'December'
+                size_hint: .5, .1
+                on_release:
+                    root.december()
+
+
+
+<JanPop>
+    id:pop
+
+    auto_dismiss:False
+    title:'January'
+    GridLayout:
+        rows:2
+        Label:
+            text:
+
+        Button:
+            text:"Click Here To Dismiss PopUp"
+            on_press: pop.dismiss()
+
+
+
+
+<FebPop>
+    id:pop
+
+    auto_dismiss:False
+    title:'February'
+    GridLayout:
+        rows:2
+        Label:
+            text: root.data
+            text_size: self.size
+            valign: 'top'
+
+        Button:
+            text:"Click Here To Dismiss PopUp"
+            on_press: pop.dismiss()
+
+<MarchPop>
+    id:pop
+
+    auto_dismiss:False
+    title:'March'
+    GridLayout:
+        rows:2
+        Label:
+            text: root.data
+            text_size: self.size
+            valign: 'top'
+
+        Button:
+            text:"Click Here To Dismiss PopUp"
+            on_press: pop.dismiss()
+
+<AprilPop>
+    id:pop
+
+    auto_dismiss:False
+    title:'April'
+    GridLayout:
+        rows:2
+        Label:
+            text: root.data
+            text_size: self.size
+            valign: 'top'
+
+        Button:
+            text:"Click Here To Dismiss PopUp"
+            on_press: pop.dismiss()
+
+<MayPop>
+    id:pop
+
+    auto_dismiss:False
+    title:'May'
+    GridLayout:
+        rows:2
+        Label:
+            text: root.data
+            text_size: self.size
+            valign: 'top'
+
+        Button:
+            text:"Click Here To Dismiss PopUp"
+            on_press: pop.dismiss()
+
+<JunePop>
+    id:pop
+
+    auto_dismiss:False
+    title:'June'
+    GridLayout:
+        rows:2
+        Label:
+            text: root.data
+            text_size: self.size
+            valign: 'top'
+
+        Button:
+            text:"Click Here To Dismiss PopUp"
+            on_press: pop.dismiss()
+
+<JulyPop>
+    id:pop
+
+    auto_dismiss:False
+    title:'July'
+    GridLayout:
+        rows:2
+        Label:
+            text: root.data
+            text_size: self.size
+            valign: 'top'
+
+        Button:
+            text:"Click Here To Dismiss PopUp"
+            on_press: pop.dismiss()
+
+<AugustPop>
+    id:pop
+
+    auto_dismiss:False
+    title:'August'
+    GridLayout:
+        rows:2
+        Label:
+            text: root.data
+            text_size: self.size
+            valign: 'top'
+
+        Button:
+            text:"Click Here To Dismiss PopUp"
+            on_press: pop.dismiss()
+
+<SeptemberPop>
+    id:pop
+
+    auto_dismiss:False
+    title:'September'
+    GridLayout:
+        rows:2
+        Label:
+            text: root.data
+            text_size: self.size
+            valign: 'top'
+
+        Button:
+            text:"Click Here To Dismiss PopUp"
+            on_press: pop.dismiss()
+
+<NovemberPop>
+    id:pop
+
+    auto_dismiss:False
+    title:'November'
+    GridLayout:
+        rows:2
+        Label:
+            text: root.data
+            text_size: self.size
+            valign: 'top'
+
+        Button:
+            text:"Click Here To Dismiss PopUp"
+            on_press: pop.dismiss()
+
+<DecemberPop>
+    id:pop
+
+    auto_dismiss:False
+    title:'December'
+    GridLayout:
+        rows:2
+        Label:
+            text: root.data
+            text_size: self.size
+            valign: 'top'
+
+        Button:
+            text:"Click Here To Dismiss PopUp"
+            on_press: pop.dismiss()
+
+
+
